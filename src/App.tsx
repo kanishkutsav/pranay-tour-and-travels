@@ -60,6 +60,7 @@ function App() {
     try {
       const response = await fetch('/.netlify/functions/callback', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(callbackForm) })
       if (!response.ok) throw new Error('Request failed')
+      setCallbackForm({ name: '', trip: '', plannedDate: '', phone: '', comments: '' })
       setIsFormSubmitted(true)
     } catch {
       setFormError('We could not send your request. Please try again.')

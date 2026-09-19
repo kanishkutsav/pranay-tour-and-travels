@@ -141,7 +141,7 @@ function App() {
       </section>
 
       <section className="destination-section" id="destinations">
-        <div className="section-heading"><div><div className="section-kicker">Pick a feeling</div><h2>Places that stay with you</h2></div><a className="arrow-link" href="#destinations" onClick={(event) => { event.preventDefault(); openCallbackForm() }}>See all destinations <ArrowRight size={17} /></a></div>
+        <div className="section-heading"><div><div className="section-kicker">Pick a feeling</div><h2>Places that stay with you</h2></div></div>
         <div className="destination-grid">{destinations.map((destinationItem, index) => <div className={`destination-card destination-card-${index + 1}`} key={destinationItem.name}><img src={destinationItem.image} alt={destinationItem.name} /><div className="card-shade"></div><div className="destination-info"><span>{destinationItem.detail}</span><h3>{destinationItem.name}</h3></div></div>)}</div>
       </section>
 

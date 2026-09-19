@@ -1153,3 +1153,105 @@ main { overflow: hidden; }
     transition: none;
   }
 }
+
+
+/* Mobile navigation drawer */
+@media (max-width: 700px) {
+  .mobile-menu-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: flex;
+    justify-content: flex-end;
+    background: rgba(13, 31, 25, .58);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  .mobile-menu {
+    width: min(82vw, 330px);
+    height: 100%;
+    box-sizing: border-box;
+    padding: 28px 22px;
+    background: var(--cream);
+    color: var(--ink);
+    box-shadow: -18px 0 50px rgba(0, 0, 0, .2);
+    animation: mobile-menu-in .24s ease both;
+  }
+
+  .mobile-menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .mobile-menu-header span {
+    color: var(--terracotta);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+  }
+
+  .mobile-menu-header button {
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--ink);
+    font-size: 26px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .mobile-menu-links {
+    display: grid;
+    gap: 4px;
+    padding-top: 18px;
+  }
+
+  .mobile-menu-links a {
+    display: grid;
+    grid-template-columns: 30px 1fr 18px;
+    align-items: center;
+    gap: 10px;
+    padding: 17px 4px;
+    border-bottom: 1px solid rgba(37,53,47,.1);
+    color: var(--ink);
+    text-decoration: none;
+    font: 500 21px/1.1 'Playfair Display', serif;
+  }
+
+  .mobile-menu-links a span {
+    color: var(--terracotta);
+    font: 700 9px 'DM Sans', sans-serif;
+    letter-spacing: .08em;
+  }
+
+  .mobile-menu-links a svg {
+    color: var(--terracotta);
+    transition: transform .2s ease;
+  }
+
+  .mobile-menu-links a:active svg {
+    transform: translateX(3px);
+  }
+
+  .mobile-menu-note {
+    max-width: 240px;
+    margin-top: 28px;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.65;
+  }
+}
+
+@keyframes mobile-menu-in {
+  from { opacity: 0; transform: translateX(18px); }
+  to { opacity: 1; transform: translateX(0); }
+}

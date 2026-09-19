@@ -109,29 +109,46 @@ function App() {
           <div className="search-panel">
             <div className="search-field"><MapPin size={20} /><label htmlFor="destination">Where do you want to go?</label><select id="destination" value={destination} onChange={(event) => setDestination(event.target.value)}><option value="">Select a destination</option>{experienceDestinations.map((destinationName) => <option value={destinationName} key={destinationName}>{destinationName}</option>)}</select></div>
             <div className="search-field date-field"><CalendarDays size={20} /><label htmlFor="dates">When</label><button id="dates" type="button" onClick={() => datePickerRef.current?.showPicker()}>{dateLabel} <ChevronDown size={15} /></button><input ref={datePickerRef} className="date-picker-input" type="date" value={date} min={today} onChange={(event) => setDate(event.target.value)} aria-label="Select travel date" tabIndex={-1} /></div>
-            <button className="search-button" type="button" aria-label="Get a callback" onClick={() => openCallbackForm()}><PhoneCall size={20} /><span>Get a callback</span></button>
+            
           </div>
-          <div className="hero-cta-layer">
-            <div className="popular-destinations" aria-label="Popular destinations">
-              <span>Popular right now</span>
+          <p className="search-result" aria-live="polite">{searchLabel}</p>
+        </div>
+        <div className="hero-bottom-note"><span>01</span><span className="note-line"></span><span>Every journey starts with a yes.</span></div>
+      </section>
+
+      <section className="journey-cta-section" aria-label="Plan your journey">
+        <div className="journey-cta-inner">
+          <div className="journey-cta-heading">
+            <span className="section-kicker">Start planning</span>
+            <h2>Where will your next journey take you?</h2>
+            <p>Choose a popular destination or reach us directly. We’ll help turn your idea into a thoughtful trip.</p>
+          </div>
+          <div className="journey-popular">
+            <span>Popular right now</span>
+            <div className="journey-destination-list">
               {popularDestinations.map((popular) => (
                 <button key={popular} type="button" className={destination === popular ? 'popular-destination active' : 'popular-destination'} onClick={() => setDestination(popular)}>
                   {popular}
                 </button>
               ))}
             </div>
-            <div className="hero-contact-actions">
-              <a className="hero-contact-link whatsapp-link" href={whatsappLink} target="_blank" rel="noreferrer">
-                <MessageCircle size={15} /> WhatsApp
-              </a>
-              <a className="hero-contact-link" href={'tel:' + businessPhone}>
-                <PhoneCall size={15} /> Call now
-              </a>
-            </div>
           </div>
-          <p className="search-result" aria-live="polite">{searchLabel}</p>
+          <div className="journey-contact-actions">
+            <button className="journey-primary-action" type="button" onClick={() => openCallbackForm()}>
+              <PhoneCall size={18} />
+              <span><strong>Get a callback</strong><small>Tell us what you have in mind</small></span>
+              <ArrowRight size={17} />
+            </button>
+            <a className="journey-secondary-action" href={whatsappLink} target="_blank" rel="noreferrer">
+              <MessageCircle size={18} />
+              <span><strong>WhatsApp</strong><small>Message us directly</small></span>
+            </a>
+            <a className="journey-secondary-action" href={'tel:' + businessPhone}>
+              <PhoneCall size={18} />
+              <span><strong>Call now</strong><small>Speak with our team</small></span>
+            </a>
+          </div>
         </div>
-        <div className="hero-bottom-note"><span>01</span><span className="note-line"></span><span>Every journey starts with a yes.</span></div>
       </section>
 
       <section className="intro-section" id="about">

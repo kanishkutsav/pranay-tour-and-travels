@@ -38,11 +38,18 @@ const experienceDestinations = [...new Set(packages.flatMap((trip) => trip.desti
 const popularDestinations = ['Ayodhya', 'Varanasi', 'Bodh Gaya', 'Kedarnath']
 const businessPhone = '9935123959'
 const whatsappLink = 'https://wa.me/919935123959?text=Hi%20Pranay%20Tour%20%26%20Travels%2C%20I%27d%20like%20to%20plan%20a%20trip.'
+const destinationExperiences = {
+  'Uttar Pradesh': { name: 'Ayodhya', description: 'Spirituality, history and the sacred heart of Uttar Pradesh.', places: ['Ram Mandir', 'Hanuman Garhi', 'Saryu Ghat', 'Kanak Bhawan'], duration: '2–3 days', bestFor: 'Family · Spiritual · Senior citizens' },
+  Bihar: { name: 'Bodh Gaya', description: 'A peaceful journey through one of India’s most important Buddhist sites.', places: ['Mahabodhi Temple', 'Great Buddha Statue', 'Thai Monastery', 'Sujata Garh'], duration: '2–3 days', bestFor: 'Family · Spiritual · History lovers' },
+  Jharkhand: { name: 'Deoghar', description: 'A sacred and serene escape centred around one of India’s revered Jyotirlingas.', places: ['Baba Baidyanath Temple', 'Tapovan', 'Trikuta Parvat', 'Nandan Pahar'], duration: '2–3 days', bestFor: 'Family · Spiritual · Senior citizens' },
+  Delhi: { name: 'Delhi', description: 'Centuries of history, iconic landmarks and the energy of India’s capital.', places: ['India Gate', 'Qutub Minar', 'Red Fort', 'Humayun’s Tomb'], duration: '2–3 days', bestFor: 'Family · Heritage · First-time visitors' },
+} as const
 
 function App() {
   const [destination, setDestination] = useState('')
   const [date, setDate] = useState('')
   const [isCallbackFormOpen, setIsCallbackFormOpen] = useState(false)
+  const [selectedDestination, setSelectedDestination] = useState<keyof typeof destinationExperiences | null>(null)
   const [isFormSubmitted, setIsFormSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [formError, setFormError] = useState('')
@@ -51,11 +58,14 @@ function App() {
   const today = new Date().toISOString().split('T')[0]
   const dateLabel = date ? new Intl.DateTimeFormat('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(`${date}T00:00:00`)) : 'Add dates'
   const searchLabel = destination.trim() ? `Explore ${destination}` : 'Find your next story'
-  const openCallbackForm = () => {
+  const openCallbackForm = (trip = '') => {
     setIsFormSubmitted(false)
     setFormError('')
+    if (trip) setCallbackForm((current) => ({ ...current, trip }))
     setIsCallbackFormOpen(true)
   }
+  const openDestinationExperience = (name: keyof typeof destinationExperiences) => setSelectedDestination(name)
+  const closeDestinationExperience = () => setSelectedDestination(null)
   const closeCallbackForm = () => setIsCallbackFormOpen(false)
   const handleCallbackSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -142,7 +152,7 @@ function App() {
 
       <section className="destination-section" id="destinations">
         <div className="section-heading"><div><div className="section-kicker">Pick a feeling</div><h2>Places that stay with you</h2></div><a className="arrow-link" href="#destinations" onClick={(event) => { event.preventDefault(); openCallbackForm() }}>See all destinations <ArrowRight size={17} /></a></div>
-        <div className="destination-grid">{destinations.map((destinationItem, index) => <a className={`destination-card destination-card-${index + 1}`} href="#experiences" key={destinationItem.name}><img src={destinationItem.image} alt={destinationItem.name} /><div className="card-shade"></div><div className="destination-info"><span>{destinationItem.detail}</span><h3>{destinationItem.name}</h3></div></a>)}</div>
+        <div className="destination-grid">{destinations.map((destinationItem, index) => <button className={`destination-card destination-card-${index + 1}`} type="button" onClick={() => openDestinationExperience(destinationItem.name as keyof typeof destinationExperiences)} key={destinationItem.name}><img src={destinationItem.image} alt={destinationItem.name} /><div className="card-shade"></div><div className="destination-info"><span>{destinationItem.detail}</span><h3>{destinationItem.name}</h3><span className="destination-explore">Explore experience <ArrowRight size={15} /></span></div></button>)}</div>
       </section>
 
       <section className="experience-section" id="experiences">
@@ -152,6 +162,27 @@ function App() {
 
       <section className="trust-section"><div className="trust-copy"><div className="section-kicker">Travel with ease</div><h2>The details are ours.<br /><i>The memories are yours.</i></h2><p>From your first hello to the last sunset, our on-ground experts are here to make every part of your trip feel effortless.</p><button className="dark-button" type="button" onClick={openCallbackForm}>Plan my journey <ArrowRight size={17} /></button><div className="contact-stat"><strong>Contact us</strong><span><a href="tel:9935123959">9935123959</a><br /><a href="mailto:ukindiavns@gmail.com">ukindiavns@gmail.com</a></span></div></div><div className="trust-list"><div><ShieldCheck size={24} /><span><strong>Real people, always</strong>Someone from our team is never more than a call away.</span></div><div><Compass size={24} /><span><strong>Made locally</strong>Stay with people who know their home by heart.</span></div><div><Star size={24} /><span><strong>4.9 from 8,000+ travellers</strong>Good trips are better when they come recommended.</span></div></div></section>
       <footer><a className="brand" href="#top"><span className="brand-mark"><img src="/pranay-logo.png" alt="" /></span><span>Pranay <em>Tour &amp; Travels</em></span></a><span>Journeys with a little more soul.</span><span>© 2026 Pranay Tour and Travels</span></footer>
+      {selectedDestination && (() => {
+        const experience = destinationExperiences[selectedDestination]
+        return <div className="destination-overlay" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) closeDestinationExperience() }}>
+          <section className="destination-modal" role="dialog" aria-modal="true" aria-labelledby="destination-title">
+            <button className="destination-close" type="button" aria-label="Close destination experience" onClick={closeDestinationExperience}>×</button>
+            <div className="destination-modal-image"><img src={destinations.find((item) => item.name === selectedDestination)?.image} alt={experience.name} /></div>
+            <div className="destination-modal-content">
+              <div className="section-kicker">Destination experience</div>
+              <h2 id="destination-title">{experience.name}</h2>
+              <p className="destination-description">{experience.description}</p>
+              <div className="destination-facts">
+                <div><span className="destination-fact-label"><MapPin size={15} /> Places to visit</span><div className="destination-place-list">{experience.places.map((place) => <span key={place}>{place}</span>)}</div></div>
+                <div><span className="destination-fact-label"><CalendarDays size={15} /> Suggested duration</span><strong>{experience.duration}</strong></div>
+                <div><span className="destination-fact-label"><Compass size={15} /> Best for</span><strong>{experience.bestFor}</strong></div>
+              </div>
+              <p className="destination-no-price">Looking for a price? Tell us your dates and requirements and we’ll prepare a personalised quote.</p>
+              <button className="dark-button" type="button" onClick={() => { closeDestinationExperience(); openCallbackForm(experience.name) }}>Plan this trip <ArrowRight size={17} /></button>
+            </div>
+          </section>
+        </div>
+      })()} 
       {isCallbackFormOpen && <div className="callback-overlay" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) closeCallbackForm() }}><section className="callback-modal" role="dialog" aria-modal="true" aria-labelledby="callback-title"><button className="callback-close" type="button" aria-label="Close callback form" onClick={closeCallbackForm}>×</button>{isFormSubmitted ? <div className="callback-success"><div className="section-kicker">Request sent</div><h2 id="callback-title">We’ll be in touch soon.</h2><p>Your trip details were sent to our team.</p><button className="dark-button" type="button" onClick={closeCallbackForm}>Done</button></div> : <form onSubmit={handleCallbackSubmit} noValidate><div className="section-kicker">Let’s plan it</div><h2 id="callback-title">Tell us about your trip.</h2><p className="callback-required-note"><span aria-hidden="true">*</span> Required fields</p><label htmlFor="callback-name"><span className="callback-label-text">Name</span> <span className="callback-required-mark" aria-hidden="true">*</span><input id="callback-name" type="text" value={callbackForm.name} minLength={2} autoComplete="name" onChange={(event) => setCallbackForm({ ...callbackForm, name: event.target.value })} required /></label><label htmlFor="callback-trip"><span className="callback-label-text">Trip interested in</span> <span className="callback-required-mark" aria-hidden="true">*</span><input id="callback-trip" type="text" value={callbackForm.trip} onChange={(event) => setCallbackForm({ ...callbackForm, trip: event.target.value })} placeholder="e.g. Ayodhya and Varanasi" required /></label><label htmlFor="callback-date"><span className="callback-label-text">Planned date</span><input id="callback-date" type="date" min={today} value={callbackForm.plannedDate} onChange={(event) => setCallbackForm({ ...callbackForm, plannedDate: event.target.value })} /></label><label htmlFor="callback-phone"><span className="callback-label-text">Phone number</span> <span className="callback-required-mark" aria-hidden="true">*</span><input id="callback-phone" type="tel" value={callbackForm.phone} inputMode="numeric" pattern="[6-9][0-9]{9}" maxLength={10} onChange={(event) => setCallbackForm({ ...callbackForm, phone: event.target.value.replace(/\D/g, '').slice(0, 10) })} required /></label><label htmlFor="callback-comments"><span className="callback-label-text">Comments</span><textarea id="callback-comments" value={callbackForm.comments} onChange={(event) => setCallbackForm({ ...callbackForm, comments: event.target.value })} placeholder="Anything you'd like us to know?" rows={4} /></label>{formError && <p className="callback-error" role="alert" aria-live="polite">{formError}</p>}<button className="dark-button callback-submit" type="submit" disabled={isSubmitting}>{isSubmitting ? 'Sending…' : 'Submit'} {!isSubmitting && <ArrowRight size={17} />}</button></form>}</section></div>}
     </main>
   )

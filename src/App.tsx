@@ -138,13 +138,11 @@ function App() {
             <h2>Where will your next journey take you?</h2>
             <p>Choose a popular destination or reach us directly. We’ll help turn your idea into a thoughtful trip.</p>
           </div>
-          <div className="journey-popular">
+          <div className="journey-popular" aria-label="Popular destinations">
             <span>Popular right now</span>
             <div className="journey-destination-list">
               {popularDestinations.map((popular) => (
-                <button key={popular} type="button" className={destination === popular ? 'popular-destination active' : 'popular-destination'} onClick={() => setDestination(popular)}>
-                  {popular}
-                </button>
+                <span key={popular} className="popular-destination">{popular}</span>
               ))}
             </div>
           </div>

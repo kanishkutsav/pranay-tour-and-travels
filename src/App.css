@@ -1143,6 +1143,10 @@ main { overflow: hidden; }
     width: 43px;
     height: 43px;
   }
+  .mobile-whatsapp svg {
+    width: 23px;
+    height: 23px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

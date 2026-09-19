@@ -49,7 +49,6 @@ function App() {
   const datePickerRef = useRef<HTMLInputElement>(null)
   const today = new Date().toISOString().split('T')[0]
   const dateLabel = date ? new Intl.DateTimeFormat('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(`${date}T00:00:00`)) : 'Add dates'
-  const searchLabel = destination.trim() ? `Explore ${destination}` : 'Find your next story'
   const openCallbackForm = (trip = '') => {
     setIsFormSubmitted(false)
     setFormError('')

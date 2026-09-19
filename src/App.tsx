@@ -58,7 +58,7 @@ function App() {
     setIsSubmitting(true)
     setFormError('')
     try {
-      const response = await fetch('/api/callback', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(callbackForm) })
+      const response = await fetch('/.netlify/functions/callback', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(callbackForm) })
       if (!response.ok) throw new Error('Request failed')
       setIsFormSubmitted(true)
     } catch {

@@ -32,7 +32,7 @@ const packages = [
   { title: 'Deoghar temple trail', location: 'Deoghar · 3 days', destinations: ['Deoghar'], tag: 'Sacred journey', image: '/deoghar-temple.png' },
   { title: 'Nalanda knowledge trail', location: 'Nalanda · 2 days', destinations: ['Nalanda'], tag: 'Ancient India', image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Nalanda%20ruins.jpg?width=1000' },
   { title: 'Rajgir hills & peace', location: 'Rajgir · 3 days', destinations: ['Rajgir'], tag: 'Slow travel', image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Vishwa%20Shanti%20Stupa%2C%20Rajgir.jpg?width=1000' },
-  { title: 'Delhi heritage & old-city trail', location: 'Delhi · 2 days', destinations: ['Delhi'], tag: 'City heritage', image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Red%20Fort%20Delhi%2001.jpg?width=1000' },
+  { title: 'Delhi heritage & old-city trail', location: 'Delhi · 2 days', destinations: ['Delhi'], tag: 'City heritage', image: 'https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1000&q=85' },
 ]
 
 const experienceDestinations = [...new Set(packages.flatMap((trip) => trip.destinations))]

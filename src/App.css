@@ -26,3 +26,30 @@ main { overflow: hidden; }
 
 .callback-modal .callback-label-text, .callback-modal .callback-required-mark { display: inline !important; }
 .callback-modal .callback-required-mark { color: var(--terracotta); margin-left: 2px; }
+
+/* Hero motion + conversion layer */
+.hero-section { overflow: hidden; isolation: isolate; background: linear-gradient(90deg, rgba(21,47,39,.76), rgba(21,47,39,.18)); }
+.hero-section::before { content: ""; position: absolute; inset: -5%; z-index: -2; background: url('https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=2200&q=90') center/cover; animation: hero-drift 18s ease-in-out infinite alternate; transform: scale(1.04); }
+.hero-section::after { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(circle at 72% 34%, rgba(229,182,155,.12), transparent 28%), linear-gradient(90deg, rgba(21,47,39,.12), transparent 58%); pointer-events: none; }
+@keyframes hero-drift { from { transform: scale(1.04) translate3d(-.5%, 0, 0); } to { transform: scale(1.09) translate3d(.7%, -1%, 0); } }
+.hero-cta-layer { width: min(800px, 100%); margin-top: 14px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+.popular-destinations { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; color: rgba(255,255,255,.72); font-size: 11px; }
+.popular-destinations > span { margin-right: 4px; text-transform: uppercase; letter-spacing: .1em; font-weight: 700; }
+.popular-destination { border: 1px solid rgba(255,255,255,.25); background: rgba(255,255,255,.08); color: rgba(255,255,255,.9); border-radius: 999px; padding: 6px 10px; font: inherit; cursor: pointer; backdrop-filter: blur(6px); transition: background .2s ease, border-color .2s ease, transform .2s ease; }
+.popular-destination:hover, .popular-destination.active { background: rgba(255,255,255,.18); border-color: rgba(255,255,255,.52); transform: translateY(-1px); }
+.hero-contact-actions { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+.hero-contact-link { display: inline-flex; align-items: center; gap: 6px; color: rgba(255,255,255,.92); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; padding-bottom: 4px; border-bottom: 1px solid rgba(255,255,255,.42); }
+.hero-contact-link:hover { color: #fff; border-color: #fff; }
+.whatsapp-link .contact-icon { font-size: 19px; line-height: 10px; transform: rotate(-20deg); }
+.search-button { box-shadow: 0 8px 18px rgba(145,79,54,.22); transition: transform .2s ease, box-shadow .2s ease, background .2s ease; }
+.search-button:hover { transform: translateY(-1px); box-shadow: 0 12px 24px rgba(145,79,54,.3); }
+@media (max-width: 700px) {
+  .hero-cta-layer { align-items: flex-start; flex-direction: column; }
+  .hero-contact-actions { width: 100%; justify-content: flex-start; }
+  .popular-destinations { gap: 6px; }
+  .popular-destinations > span { width: 100%; margin-bottom: 2px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-section::before { animation: none; }
+  .popular-destination, .search-button { transition: none; }
+}

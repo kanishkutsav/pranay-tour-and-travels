@@ -43,6 +43,7 @@ function App() {
   const [destination, setDestination] = useState('')
   const [date, setDate] = useState('')
   const [isCallbackFormOpen, setIsCallbackFormOpen] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [selectedDestination, setSelectedDestination] = useState<string | null>(null)
   const [isFormSubmitted, setIsFormSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -58,6 +59,7 @@ function App() {
     setIsCallbackFormOpen(true)
   }
   const closeCallbackForm = () => setIsCallbackFormOpen(false)
+  const closeMobileMenu = () => setIsMobileMenuOpen(false)
   const selectDestination = (destinationName: string) => {
     setSelectedDestination(destinationName)
     requestAnimationFrame(() => document.getElementById('experiences')?.scrollIntoView({ behavior: 'smooth', block: 'start' }))
@@ -105,7 +107,18 @@ function App() {
         <nav className="navbar" aria-label="Main navigation">
           <a className="brand" href="#top" aria-label="Pranay Tour and Travels home"><span className="brand-mark"><img src="/pranay-logo.png" alt="" /></span><span>Pranay <em>Tour &amp; Travels</em></span></a>
           <div className="nav-links"><a href="#destinations">Destinations</a><a href="#experiences">Experiences</a><a href="#why-us">Why us</a></div>
-          <div className="nav-actions"><button className="menu-button" type="button" aria-label="Open menu"><Menu size={21} /></button></div>
+          <div className="nav-actions"><button className="menu-button" type="button" aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'} aria-expanded={isMobileMenuOpen} onClick={() => setIsMobileMenuOpen((open) => !open)}><Menu size={21} /></button></div>
+          {isMobileMenuOpen && <div className="mobile-menu-overlay" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) closeMobileMenu() }}>
+            <aside className="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+              <div className="mobile-menu-header"><span>Explore</span><button type="button" onClick={closeMobileMenu} aria-label="Close menu">×</button></div>
+              <nav className="mobile-menu-links" aria-label="Mobile navigation links">
+                <a href="#destinations" onClick={closeMobileMenu}><span>01</span>Destinations<ArrowRight size={17} /></a>
+                <a href="#experiences" onClick={closeMobileMenu}><span>02</span>Experiences<ArrowRight size={17} /></a>
+                <a href="#why-us" onClick={closeMobileMenu}><span>03</span>Why us<ArrowRight size={17} /></a>
+              </nav>
+              <div className="mobile-menu-note">Thoughtful journeys across India, made for curious people and the stories they bring back.</div>
+            </aside>
+          </div>}
         </nav>
         <div className="hero-content" id="top">
           <p className="eyebrow">Travel slowly. Feel deeply.</p>

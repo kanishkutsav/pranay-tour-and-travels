@@ -111,7 +111,7 @@ function App() {
             <div className="search-field date-field"><CalendarDays size={20} /><label htmlFor="dates">When</label><button id="dates" type="button" onClick={() => datePickerRef.current?.showPicker()}>{dateLabel} <ChevronDown size={15} /></button><input ref={datePickerRef} className="date-picker-input" type="date" value={date} min={today} onChange={(event) => setDate(event.target.value)} aria-label="Select travel date" tabIndex={-1} /></div>
             
           </div>
-          <p className="search-result" aria-live="polite">{searchLabel}</p>
+          <p className="search-result" aria-live="polite"><span className="search-result-mark"></span><span>{searchLabel}</span></p>
         </div>
         <div className="hero-bottom-note"><span>01</span><span className="note-line"></span><span>Every journey starts with a yes.</span></div>
       </section>

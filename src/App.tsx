@@ -34,6 +34,9 @@ const packages = [
 ]
 
 const experienceDestinations = [...new Set(packages.flatMap((trip) => trip.destinations))]
+const popularDestinations = ['Ayodhya', 'Varanasi', 'Bodh Gaya', 'Kedarnath']
+const businessPhone = '9935123959'
+const whatsappLink = 'https://wa.me/919935123959?text=Hi%20Pranay%20Tour%20%26%20Travels%2C%20I%27d%20like%20to%20plan%20a%20trip.'
 
 function App() {
   const [destination, setDestination] = useState('')
@@ -106,6 +109,24 @@ function App() {
             <div className="search-field"><MapPin size={20} /><label htmlFor="destination">Where do you want to go?</label><select id="destination" value={destination} onChange={(event) => setDestination(event.target.value)}><option value="">Select a destination</option>{experienceDestinations.map((destinationName) => <option value={destinationName} key={destinationName}>{destinationName}</option>)}</select></div>
             <div className="search-field date-field"><CalendarDays size={20} /><label htmlFor="dates">When</label><button id="dates" type="button" onClick={() => datePickerRef.current?.showPicker()}>{dateLabel} <ChevronDown size={15} /></button><input ref={datePickerRef} className="date-picker-input" type="date" value={date} min={today} onChange={(event) => setDate(event.target.value)} aria-label="Select travel date" tabIndex={-1} /></div>
             <button className="search-button" type="button" aria-label="Get a callback" onClick={openCallbackForm}><PhoneCall size={20} /><span>Get a callback</span></button>
+          </div>
+          <div className="hero-cta-layer">
+            <div className="popular-destinations" aria-label="Popular destinations">
+              <span>Popular right now</span>
+              {popularDestinations.map((popular) => (
+                <button key={popular} type="button" className={destination === popular ? 'popular-destination active' : 'popular-destination'} onClick={() => setDestination(popular)}>
+                  {popular}
+                </button>
+              ))}
+            </div>
+            <div className="hero-contact-actions">
+              <a className="hero-contact-link whatsapp-link" href={whatsappLink} target="_blank" rel="noreferrer">
+                <span className="contact-icon" aria-hidden="true">⌁</span> WhatsApp
+              </a>
+              <a className="hero-contact-link" href={'tel:' + businessPhone}>
+                <PhoneCall size={15} /> Call now
+              </a>
+            </div>
           </div>
           <p className="search-result" aria-live="polite">{searchLabel}</p>
         </div>

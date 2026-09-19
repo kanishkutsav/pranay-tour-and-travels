@@ -25,10 +25,27 @@ export default async (request) => {
 
   try {
     const form = await request.json()
-    const fields = ['name', 'trip', 'plannedDate', 'phone']
+    const name = String(form.name || '').trim()
+    const trip = String(form.trip || '').trim()
+    const plannedDate = String(form.plannedDate || '').trim()
+    const phone = String(form.phone || '').trim()
 
-    if (fields.some((field) => !String(form[field] || '').trim())) {
-      return new Response(JSON.stringify({ error: 'All fields are required.' }), {
+    if (name.length < 2) {
+      return new Response(JSON.stringify({ error: 'Name must be at least 2 characters.' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      })
+    }
+
+    if (!trip) {
+      return new Response(JSON.stringify({ error: 'Trip interested in is required.' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      })
+    }
+
+    if (!/^[6-9]\d{9}$/.test(phone)) {
+      return new Response(JSON.stringify({ error: 'Please enter a valid 10-digit Indian mobile number.' }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' },
       })
@@ -39,12 +56,12 @@ export default async (request) => {
       to: recipients[0],
       bcc: recipients.slice(1),
       replyTo: process.env.SMTP_USER,
-      subject: `Trip callback request from ${form.name}`,
+      subject: `Trip callback request from ${name}`,
       text: [
-        `Name: ${form.name}`,
-        `Trip interested in: ${form.trip}`,
-        `Planned date: ${form.plannedDate}`,
-        `Phone number: ${form.phone}`,
+        `Name: ${name}`,
+        `Trip interested in: ${trip}`,
+        `Planned date: ${plannedDate || 'Not specified'}`,
+        `Phone number: ${phone}`,
         `Comments: ${form.comments || 'None'}`,
       ].join('\n'),
     })

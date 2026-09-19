@@ -649,3 +649,507 @@ main { overflow: hidden; }
     font-size: 19px;
   }
 }
+
+
+/* Mobile-first refinement */
+.mobile-whatsapp {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-width: 320px;
+  }
+
+  .hero-section {
+    min-height: 650px;
+    background-position: 58% center;
+  }
+
+  .navbar {
+    height: 72px;
+    padding: 0 5vw;
+  }
+
+  .brand {
+    min-width: 0;
+    gap: 8px;
+    font-size: 14px;
+  }
+
+  .brand > span:last-child {
+    white-space: nowrap;
+  }
+
+  .brand-mark {
+    width: 32px;
+    height: 32px;
+  }
+
+  .nav-actions {
+    flex-shrink: 0;
+  }
+
+  .menu-button {
+    width: 36px;
+    height: 36px;
+  }
+
+  .hero-content {
+    padding: 72px 7vw 40px;
+    max-width: 100%;
+  }
+
+  .eyebrow {
+    margin-bottom: 18px;
+    padding: 7px 10px;
+    font-size: 8px;
+    letter-spacing: .14em;
+  }
+
+  h1 {
+    max-width: 100%;
+    margin-bottom: 18px;
+    font-size: clamp(43px, 12.5vw, 57px);
+    line-height: .98;
+  }
+
+  h1::before {
+    left: -10px;
+    height: 1.95em;
+  }
+
+  .hero-copy {
+    max-width: 340px;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  .search-panel {
+    width: 100%;
+    margin-top: 25px;
+    gap: 6px;
+    padding: 6px;
+    border-radius: 11px;
+  }
+
+  .search-field {
+    min-height: 60px;
+    grid-template-columns: 31px minmax(0, 1fr);
+    column-gap: 9px;
+    padding: 9px 11px;
+    border-radius: 8px;
+  }
+
+  .search-field > svg {
+    width: 16px;
+    height: 16px;
+    padding: 6px;
+  }
+
+  .search-field label {
+    font-size: 8px;
+  }
+
+  .search-field select,
+  .search-field button {
+    font-size: 13px;
+  }
+
+  .search-button {
+    min-height: 44px;
+    padding: 0 16px;
+    font-size: 12px;
+    justify-content: center;
+  }
+
+  .journey-cta-section {
+    padding: 48px 6vw;
+  }
+
+  .journey-cta-heading {
+    gap: 13px;
+  }
+
+  .journey-cta-heading h2,
+  .section-heading h2 {
+    font-size: clamp(32px, 9vw, 43px);
+    line-height: 1.02;
+  }
+
+  .journey-cta-heading p {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .journey-popular {
+    margin-top: 27px;
+    padding: 15px 0;
+    gap: 10px;
+  }
+
+  .journey-destination-list {
+    gap: 6px;
+  }
+
+  .journey-destination-list .popular-destination {
+    padding: 8px 11px;
+    font-size: 11px;
+  }
+
+  .journey-contact-actions {
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .journey-primary-action,
+  .journey-secondary-action {
+    min-height: 62px;
+    padding: 12px 13px;
+    gap: 11px;
+    border-radius: 8px;
+  }
+
+  .journey-primary-action strong,
+  .journey-secondary-action strong {
+    font-size: 12px;
+  }
+
+  .journey-primary-action small,
+  .journey-secondary-action small {
+    font-size: 9px;
+  }
+
+  .intro-section,
+  .destination-section,
+  .experience-section,
+  .trust-section {
+    padding: 58px 6vw;
+  }
+
+  .intro-section .section-kicker,
+  .destination-section .section-kicker,
+  .experience-section .section-kicker {
+    margin-bottom: 15px;
+    font-size: 9px;
+  }
+
+  .intro-grid {
+    gap: 22px;
+  }
+
+  .intro-grid h2 {
+    font-size: clamp(34px, 9.5vw, 45px);
+    line-height: 1.01;
+  }
+
+  .intro-copy {
+    max-width: 100%;
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  .arrow-link {
+    margin-top: 19px;
+    padding-bottom: 6px;
+    font-size: 11px;
+  }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    padding-top: 26px;
+    margin-top: 30px;
+  }
+
+  .stat-row div {
+    min-width: 0;
+    display: grid;
+    gap: 3px;
+  }
+
+  .stat-row strong {
+    font-size: 28px;
+  }
+
+  .stat-row span {
+    font-size: 7.5px;
+    line-height: 1.35;
+  }
+
+  .section-heading {
+    margin-bottom: 26px;
+    gap: 13px;
+  }
+
+  .destination-grid {
+    gap: 9px;
+  }
+
+  .destination-card,
+  .destination-card-1 {
+    height: 210px;
+  }
+
+  .destination-card-1 {
+    height: 265px;
+  }
+
+  .destination-info {
+    bottom: 16px;
+    left: 16px;
+    right: 14px;
+  }
+
+  .destination-info span {
+    font-size: 9px;
+  }
+
+  .destination-info h3 {
+    margin-top: 4px;
+    font-size: 24px;
+  }
+
+  .destination-card-cta {
+    margin-top: 7px;
+    font-size: 8px !important;
+  }
+
+  .experience-heading {
+    gap: 14px;
+  }
+
+  .experience-reset {
+    padding: 8px 12px;
+    font-size: 10px;
+  }
+
+  .package-grid {
+    gap: 10px;
+  }
+
+  .package-card,
+  .package-image {
+    min-height: 225px;
+    height: 225px;
+    border-radius: 8px;
+  }
+
+  .package-content {
+    padding: 13px;
+  }
+
+  .package-tag {
+    padding: 6px 8px;
+    font-size: 8px;
+  }
+
+  .package-location {
+    font-size: 8px;
+  }
+
+  .package-copy h3 {
+    font-size: clamp(21px, 6.3vw, 27px);
+    line-height: 1.04;
+  }
+
+  .package-save {
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .trust-section {
+    gap: 34px;
+    padding-top: 62px;
+    padding-bottom: 70px;
+  }
+
+  .trust-section h2 {
+    font-size: clamp(37px, 10vw, 50px);
+    line-height: .99;
+  }
+
+  .trust-copy > p {
+    margin: 20px 0 23px;
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  .trust-copy .dark-button {
+    min-height: 45px;
+    padding: 0 15px;
+    font-size: 11px;
+  }
+
+  .trust-copy .contact-stat {
+    margin-top: 24px;
+  }
+
+  .trust-list {
+    padding: 0;
+  }
+
+  .trust-list > div {
+    grid-template-columns: 37px minmax(0, 1fr);
+    gap: 12px;
+    padding: 18px 0;
+  }
+
+  .trust-list > div > svg {
+    width: 17px;
+    height: 17px;
+    padding: 9px;
+  }
+
+  .trust-list span {
+    gap: 5px;
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  .trust-list strong {
+    font-size: 18px;
+  }
+
+  footer {
+    padding: 24px 6vw 82px;
+    gap: 9px;
+    font-size: 9px;
+  }
+
+  footer .brand {
+    font-size: 13px;
+  }
+
+  .mobile-whatsapp {
+    position: fixed;
+    z-index: 50;
+    left: 16px;
+    bottom: calc(14px + env(safe-area-inset-bottom));
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 46px;
+    padding: 0 15px 0 12px;
+    border: 1px solid rgba(255,255,255,.72);
+    border-radius: 999px;
+    background: #25d366;
+    color: #fff;
+    box-shadow: 0 10px 28px rgba(0,0,0,.24);
+    text-decoration: none;
+    font: 700 11px 'DM Sans', sans-serif;
+    letter-spacing: .01em;
+  }
+
+  .mobile-whatsapp svg {
+    flex-shrink: 0;
+  }
+
+  .mobile-whatsapp:active {
+    transform: translateY(1px);
+  }
+
+  .callback-overlay {
+    padding: 12px;
+    align-items: end;
+  }
+
+  .callback-modal {
+    width: 100%;
+    max-height: 91vh;
+    padding: 30px 20px 22px;
+    border-radius: 14px 14px 0 0;
+  }
+
+  .callback-modal h2 {
+    margin-bottom: 18px;
+    font-size: clamp(31px, 9vw, 40px);
+    line-height: 1;
+  }
+
+  .callback-modal form {
+    gap: 13px;
+  }
+
+  .callback-modal input,
+  .callback-modal textarea {
+    margin-top: 5px;
+    padding: 11px 12px;
+    font-size: 14px;
+  }
+
+  .callback-submit {
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 380px) {
+  .brand > span:last-child {
+    font-size: 12px;
+  }
+
+  .brand-mark {
+    width: 30px;
+    height: 30px;
+  }
+
+  .hero-content {
+    padding-left: 8vw;
+    padding-right: 8vw;
+  }
+
+  .hero-section {
+    min-height: 625px;
+  }
+
+  h1 {
+    font-size: 42px;
+  }
+
+  .search-panel {
+    margin-top: 21px;
+  }
+
+  .journey-cta-section,
+  .intro-section,
+  .destination-section,
+  .experience-section,
+  .trust-section {
+    padding-left: 5vw;
+    padding-right: 5vw;
+  }
+
+  .destination-card-1 {
+    height: 240px;
+  }
+
+  .destination-card {
+    height: 195px;
+  }
+
+  .package-card,
+  .package-image {
+    height: 210px;
+    min-height: 210px;
+  }
+
+  .mobile-whatsapp {
+    left: 12px;
+    bottom: calc(11px + env(safe-area-inset-bottom));
+    min-height: 43px;
+    padding-right: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-whatsapp {
+    transition: none;
+  }
+}

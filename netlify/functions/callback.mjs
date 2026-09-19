@@ -36,7 +36,8 @@ export default async (request) => {
 
     await transporter.sendMail({
       from: process.env.SMTP_FROM || process.env.SMTP_USER,
-      to: recipients,
+      to: recipients[0],
+      bcc: recipients.slice(1),
       replyTo: process.env.SMTP_USER,
       subject: `Trip callback request from ${form.name}`,
       text: [

@@ -1031,7 +1031,7 @@ main { overflow: hidden; }
   .mobile-whatsapp {
     position: fixed;
     z-index: 50;
-    right: 16px;
+    left: 16px;
     bottom: calc(14px + env(safe-area-inset-bottom));
     display: inline-flex;
     align-items: center;
@@ -1141,7 +1141,7 @@ main { overflow: hidden; }
   }
 
   .mobile-whatsapp {
-    right: 12px;
+    left: 12px;
     bottom: calc(11px + env(safe-area-inset-bottom));
     min-height: 43px;
     padding-right: 13px;

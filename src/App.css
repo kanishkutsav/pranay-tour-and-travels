@@ -32,24 +32,38 @@ main { overflow: hidden; }
 .hero-section::before { content: ""; position: absolute; inset: -5%; z-index: -2; background: url('https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=2200&q=90') center/cover; animation: hero-drift 18s ease-in-out infinite alternate; transform: scale(1.04); }
 .hero-section::after { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(circle at 72% 34%, rgba(229,182,155,.12), transparent 28%), linear-gradient(90deg, rgba(21,47,39,.12), transparent 58%); pointer-events: none; }
 @keyframes hero-drift { from { transform: scale(1.04) translate3d(-.5%, 0, 0); } to { transform: scale(1.09) translate3d(.7%, -1%, 0); } }
-.hero-cta-layer { width: min(800px, 100%); margin-top: 14px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
-.popular-destinations { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; color: rgba(255,255,255,.72); font-size: 11px; }
-.popular-destinations > span { margin-right: 4px; text-transform: uppercase; letter-spacing: .1em; font-weight: 700; }
-.popular-destination { border: 1px solid rgba(255,255,255,.25); background: rgba(255,255,255,.08); color: rgba(255,255,255,.9); border-radius: 999px; padding: 6px 10px; font: inherit; cursor: pointer; backdrop-filter: blur(6px); transition: background .2s ease, border-color .2s ease, transform .2s ease; }
-.popular-destination:hover, .popular-destination.active { background: rgba(255,255,255,.18); border-color: rgba(255,255,255,.52); transform: translateY(-1px); }
-.hero-contact-actions { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
-.hero-contact-link { display: inline-flex; align-items: center; gap: 6px; color: rgba(255,255,255,.92); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; padding-bottom: 4px; border-bottom: 1px solid rgba(255,255,255,.42); }
-.hero-contact-link:hover { color: #fff; border-color: #fff; }
-.whatsapp-link .contact-icon { font-size: 19px; line-height: 10px; transform: rotate(-20deg); }
-.search-button { box-shadow: 0 8px 18px rgba(145,79,54,.22); transition: transform .2s ease, box-shadow .2s ease, background .2s ease; }
-.search-button:hover { transform: translateY(-1px); box-shadow: 0 12px 24px rgba(145,79,54,.3); }
+.search-field:last-of-type { border-right: 0; }
+.journey-cta-section { padding: 76px 9vw; background: var(--cream); border-top: 1px solid rgba(37,53,47,.08); border-bottom: 1px solid var(--line); }
+.journey-cta-inner { max-width: 1180px; margin: 0 auto; }
+.journey-cta-heading { display: grid; grid-template-columns: 1fr 1.15fr; column-gap: 8vw; align-items: end; }
+.journey-cta-heading .section-kicker { margin-bottom: 14px; }
+.journey-cta-heading h2 { font-size: clamp(34px, 4vw, 52px); margin: 0; }
+.journey-cta-heading p { max-width: 390px; margin: 0 0 4px; color: var(--muted); font-size: 14px; line-height: 1.7; }
+.journey-popular { display: flex; align-items: center; gap: 16px; margin-top: 42px; padding: 18px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.journey-popular > span { flex-shrink: 0; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.journey-destination-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.journey-destination-list .popular-destination { border: 1px solid rgba(37,53,47,.2); background: #fff; color: var(--ink); border-radius: 999px; padding: 9px 14px; font: 500 12px 'DM Sans', sans-serif; cursor: pointer; transition: background .2s ease, border-color .2s ease, color .2s ease, transform .2s ease; }
+.journey-destination-list .popular-destination:hover, .journey-destination-list .popular-destination.active { background: var(--ink); border-color: var(--ink); color: #fff; transform: translateY(-1px); }
+.journey-contact-actions { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 12px; margin-top: 22px; }
+.journey-primary-action, .journey-secondary-action { min-height: 76px; display: flex; align-items: center; gap: 14px; padding: 15px 18px; text-align: left; border-radius: 3px; text-decoration: none; }
+.journey-primary-action { justify-content: flex-start; color: #fff; background: var(--terracotta); border: 1px solid var(--terracotta); cursor: pointer; box-shadow: 0 10px 22px rgba(145,79,54,.16); }
+.journey-primary-action > svg:last-child { margin-left: auto; }
+.journey-secondary-action { color: var(--ink); background: #fff; border: 1px solid var(--line); }
+.journey-primary-action > svg:first-child, .journey-secondary-action > svg { flex-shrink: 0; }
+.journey-primary-action span, .journey-secondary-action span { display: grid; gap: 4px; }
+.journey-primary-action strong, .journey-secondary-action strong { font-size: 13px; }
+.journey-primary-action small, .journey-secondary-action small { color: inherit; opacity: .7; font-size: 10px; }
+.journey-primary-action:hover { transform: translateY(-1px); box-shadow: 0 14px 28px rgba(145,79,54,.22); }
+.journey-secondary-action:hover { border-color: rgba(37,53,47,.38); transform: translateY(-1px); }
+.journey-primary-action, .journey-secondary-action { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
 @media (max-width: 700px) {
-  .hero-cta-layer { align-items: flex-start; flex-direction: column; }
-  .hero-contact-actions { width: 100%; justify-content: flex-start; }
-  .popular-destinations { gap: 6px; }
-  .popular-destinations > span { width: 100%; margin-bottom: 2px; }
+  .journey-cta-section { padding: 58px 6vw; }
+  .journey-cta-heading { grid-template-columns: 1fr; gap: 18px; }
+  .journey-cta-heading p { margin: 0; }
+  .journey-popular { align-items: flex-start; flex-direction: column; gap: 12px; }
+  .journey-contact-actions { grid-template-columns: 1fr; }
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-section::before { animation: none; }
-  .popular-destination, .search-button { transition: none; }
+  .journey-primary-action, .journey-secondary-action, .journey-destination-list .popular-destination { transition: none; }
 }

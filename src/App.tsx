@@ -7,6 +7,7 @@ import {
   Heart,
   MapPin,
   Menu,
+  MessageCircle,
   PhoneCall,
   ShieldCheck,
   Star,
@@ -121,7 +122,7 @@ function App() {
             </div>
             <div className="hero-contact-actions">
               <a className="hero-contact-link whatsapp-link" href={whatsappLink} target="_blank" rel="noreferrer">
-                <span className="contact-icon" aria-hidden="true">⌁</span> WhatsApp
+                <MessageCircle size={15} /> WhatsApp
               </a>
               <a className="hero-contact-link" href={'tel:' + businessPhone}>
                 <PhoneCall size={15} /> Call now

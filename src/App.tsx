@@ -519,7 +519,7 @@ function App() {
               <p>Journeys with a little more soul.</p>
             </div>
             <div className="footer-statement">Go somewhere<br /><i>that stays with you.</i></div>
-            <button className="footer-cta" type="button" onClick={() => openCallbackForm()}>Start a conversation <ArrowUpRight size={17} /></button>
+            <a className="footer-cta" href={whatsappLink} target="_blank" rel="noreferrer">Start a conversation <ArrowUpRight size={17} /></a>
           </div>
           <div className="footer-links reveal reveal-delay-1">
             <div><span>Explore</span><a href="#destinations">Destinations</a><a href="#experiences">Experiences</a><a href="#why-us">Why us</a></div>

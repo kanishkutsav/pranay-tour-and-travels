@@ -231,11 +231,15 @@ function App() {
     return () => window.removeEventListener('pointermove', onPointerMove)
   }, [])
 
-  const openCallbackForm = (trip = '') => {
+  const openCallbackForm = (trip = '', plannedDate = '') => {
     setIsFormSubmitted(false)
     setFormError('')
     setIsMobileMenuOpen(false)
-    if (trip) setCallbackForm((current) => ({ ...current, trip }))
+    setCallbackForm((current) => ({
+      ...current,
+      trip,
+      plannedDate,
+    }))
     setIsCallbackFormOpen(true)
   }
 
@@ -373,13 +377,6 @@ function App() {
             <div className="eyebrow reveal">Travel slowly. Feel deeply.</div>
             <h1 className="hero-title"><span className="hero-title-line">Go where your</span><span className="hero-title-line hero-title-accent">heart feels at home.</span></h1>
             <p className="hero-copy">Thoughtful journeys across India, made for curious people and the stories they bring back.</p>
-            <div className="hero-actions">
-              <button className="hero-primary" type="button" onClick={() => openCallbackForm()}>
-                <span>Plan your journey</span><ArrowRight size={18} />
-              </button>
-              <a className="hero-secondary" href="#experiences"><span className="hero-play"><Play size={11} fill="currentColor" /></span><span>Explore experiences</span></a>
-            </div>
-
             <div className="hero-finder" aria-label="Find a journey">
               <div className="hero-finder-field hero-destination-field" ref={destinationMenuRef}>
                 <span className="hero-finder-icon">01</span>
@@ -425,8 +422,8 @@ function App() {
                   </div>
                 )}
               </div>
-              <button className="hero-finder-submit" type="button" onClick={() => destination ? selectSearchDestination(destination) : document.getElementById('destinations')?.scrollIntoView({ behavior: 'smooth' })}>
-                <span>Explore</span><ArrowRight size={16} />
+              <button className="hero-finder-submit" type="button" onClick={() => openCallbackForm(destination, date)}>
+                <span>Plan your journey</span><ArrowRight size={16} />
               </button>
             </div>
           </div>

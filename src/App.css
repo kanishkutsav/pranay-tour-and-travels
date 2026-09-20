@@ -1707,6 +1707,19 @@ footer {
   color: rgba(113,128,120,.65);
 }
 
+.callback-modal input[type="date"] {
+  font-weight: 500;
+}
+
+.callback-modal input[type="date"]::-webkit-datetime-edit,
+.callback-modal input[type="date"]::-webkit-datetime-edit-text,
+.callback-modal input[type="date"]::-webkit-datetime-edit-month-field,
+.callback-modal input[type="date"]::-webkit-datetime-edit-day-field,
+.callback-modal input[type="date"]::-webkit-datetime-edit-year-field {
+  color: rgba(113,128,120,.65);
+  font: 500 14px/1.4 'DM Sans', sans-serif;
+}
+
 .callback-modal input:focus,
 .callback-modal textarea:focus {
   padding-left: 4px;

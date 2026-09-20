@@ -1083,14 +1083,15 @@ h2 i {
 
 .package-image {
   position: relative;
-  height: 335px;
+  height: 100%;
+  min-height: 335px;
   overflow: hidden;
   background: var(--ink);
 }
 
 .package-card-1 .package-image,
 .package-card-6 .package-image {
-  height: 420px;
+  min-height: 420px;
 }
 
 .package-hit {

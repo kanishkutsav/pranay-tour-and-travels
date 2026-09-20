@@ -107,7 +107,7 @@ function App() {
         <nav className="navbar" aria-label="Main navigation">
           <a className="brand" href="#top" aria-label="Pranay Tour and Travels home"><span className="brand-mark"><img src="/pranay-logo.png" alt="" /></span><span>Pranay <em>Tour &amp; Travels</em></span></a>
           <div className="nav-links"><a href="#destinations">Destinations</a><a href="#experiences">Experiences</a><a href="#why-us">Why us</a></div>
-          <div className="nav-actions"><button className="menu-button" type="button" aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'} aria-expanded={isMobileMenuOpen} onClick={() => setIsMobileMenuOpen((open) => !open)}><Menu size={21} /></button></div>
+          <div className="nav-actions"><button className="nav-plan-button" type="button" onClick={() => openCallbackForm()}>Plan a journey <ArrowRight size={15} /></button><button className="menu-button" type="button" aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'} aria-expanded={isMobileMenuOpen} onClick={() => setIsMobileMenuOpen((open) => !open)}><Menu size={21} /></button></div>
           {isMobileMenuOpen && <div className="mobile-menu-overlay" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) closeMobileMenu() }}>
             <aside className="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
               <div className="mobile-menu-header"><span>Explore</span><button type="button" onClick={closeMobileMenu} aria-label="Close menu">×</button></div>
@@ -168,6 +168,17 @@ function App() {
         <div className="section-kicker">Made for meaningful moments</div>
         <div className="intro-grid"><h2>India is not a destination.<br /><i>It is a thousand feelings.</i></h2><div className="intro-copy"><p>We plan the kind of trips that leave you with more than photographs. Local hosts, unhurried days, and the little detours that turn into your favourite memories.</p><a className="arrow-link" href="#experiences" onClick={(event) => { event.preventDefault(); openCallbackForm() }}>Our way of travelling <ArrowRight size={17} /></a></div></div>
         <div className="stat-row"><div><strong>12+</strong><span>years of journeys</span></div><div><strong>4.9</strong><span><Star size={14} fill="currentColor" /> guest rating</span></div><div><strong>28</strong><span>corners of India</span></div></div>
+      </section>
+
+      <section className="travel-principles-section" aria-label="The Pranay way">
+        <div className="travel-principles-inner">
+          <div className="section-kicker">The Pranay way</div>
+          <div className="travel-principles">
+            <div><span>01</span><strong>Thoughtful pacing</strong><p>Space for the place to unfold, without rushing from one landmark to the next.</p></div>
+            <div><span>02</span><strong>Local perspective</strong><p>Journeys shaped around the culture, history and character of each destination.</p></div>
+            <div><span>03</span><strong>Human planning</strong><p>A simple conversation turns your idea into a trip that fits the way you want to travel.</p></div>
+          </div>
+        </div>
       </section>
 
       <section className="destination-section" id="destinations">

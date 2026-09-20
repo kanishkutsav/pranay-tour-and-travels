@@ -5,6 +5,8 @@ import {
   ArrowUpRight,
   CalendarDays,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   Compass,
   Heart,
   Menu,
@@ -55,6 +57,9 @@ const heroImage = 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?aut
 function App() {
   const [destination, setDestination] = useState('')
   const [date, setDate] = useState('')
+  const [isDestinationMenuOpen, setIsDestinationMenuOpen] = useState(false)
+  const [isDatePickerOpen, setIsDatePickerOpen] = useState(false)
+  const [calendarMonth, setCalendarMonth] = useState(() => { const current = new Date(); return new Date(current.getFullYear(), current.getMonth(), 1) })
   const [isCallbackFormOpen, setIsCallbackFormOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [selectedDestination, setSelectedDestination] = useState<string | null>(null)
@@ -67,13 +72,26 @@ function App() {
   const [cursorLabel, setCursorLabel] = useState('')
   const [isLoading, setIsLoading] = useState(true)
   const [callbackForm, setCallbackForm] = useState({ name: '', trip: '', plannedDate: '', phone: '', comments: '' })
-  const datePickerRef = useRef<HTMLInputElement>(null)
+  const destinationMenuRef = useRef<HTMLDivElement>(null)
+  const dateMenuRef = useRef<HTMLDivElement>(null)
   const heroRef = useRef<HTMLElement>(null)
 
   const today = new Date().toISOString().split('T')[0]
   const dateLabel = date
     ? new Intl.DateTimeFormat('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(`${date}T00:00:00`))
     : 'Add dates'
+  const calendarMonthLabel = new Intl.DateTimeFormat('en-IN', { month: 'long', year: 'numeric' }).format(calendarMonth)
+  const calendarStart = new Date(calendarMonth.getFullYear(), calendarMonth.getMonth(), 1)
+  const calendarOffset = calendarStart.getDay()
+  const calendarDays = Array.from({ length: 42 }, (_, index) => new Date(calendarMonth.getFullYear(), calendarMonth.getMonth(), index - calendarOffset + 1))
+  const minimumDate = new Date(`${today}T00:00:00`)
+  const isPastDate = (value: Date) => value < minimumDate
+  const formatDateValue = (value: Date) => {
+    const year = value.getFullYear()
+    const month = String(value.getMonth() + 1).padStart(2, '0')
+    const day = String(value.getDate()).padStart(2, '0')
+    return `${year}-${month}-${day}`
+  }
 
   useEffect(() => {
     const timer = window.setTimeout(() => setIsLoading(false), 720)
@@ -85,10 +103,22 @@ function App() {
       if (event.key === 'Escape') {
         setIsMobileMenuOpen(false)
         setIsCallbackFormOpen(false)
+        setIsDestinationMenuOpen(false)
+        setIsDatePickerOpen(false)
       }
     }
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
+  }, [])
+
+  useEffect(() => {
+    const onPointerDown = (event: PointerEvent) => {
+      const target = event.target as Node
+      if (!destinationMenuRef.current?.contains(target)) setIsDestinationMenuOpen(false)
+      if (!dateMenuRef.current?.contains(target)) setIsDatePickerOpen(false)
+    }
+    document.addEventListener('pointerdown', onPointerDown)
+    return () => document.removeEventListener('pointerdown', onPointerDown)
   }, [])
 
   useEffect(() => {
@@ -318,21 +348,49 @@ function App() {
             </div>
 
             <div className="hero-finder" aria-label="Find a journey">
-              <div className="hero-finder-field">
+              <div className="hero-finder-field hero-destination-field" ref={destinationMenuRef}>
                 <span className="hero-finder-icon">01</span>
-                <label htmlFor="destination">Where to?</label>
-                <select id="destination" value={destination} onChange={(event) => setDestination(event.target.value)}>
-                  <option value="">Choose a destination</option>
-                  {experienceDestinations.map((destinationName) => <option value={destinationName} key={destinationName}>{destinationName}</option>)}
-                </select>
-                <ChevronDown size={14} />
+                <label>Where to?</label>
+                <button className="hero-finder-control" type="button" aria-haspopup="listbox" aria-expanded={isDestinationMenuOpen} onClick={() => setIsDestinationMenuOpen((open) => !open)}>
+                  <span className={destination ? '' : 'is-placeholder'}>{destination || 'Choose a destination'}</span>
+                </button>
+                <ChevronDown className={isDestinationMenuOpen ? 'is-open' : ''} size={14} />
+                {isDestinationMenuOpen && (
+                  <div className="finder-dropdown" role="listbox" aria-label="Choose a destination">
+                    <button className={!destination ? 'is-selected' : ''} type="button" role="option" aria-selected={!destination} onClick={() => { setDestination(''); setIsDestinationMenuOpen(false) }}>Choose a destination</button>
+                    {experienceDestinations.map((destinationName) => (
+                      <button className={destination === destinationName ? 'is-selected' : ''} type="button" role="option" aria-selected={destination === destinationName} key={destinationName} onClick={() => { setDestination(destinationName); setIsDestinationMenuOpen(false) }}>{destinationName}</button>
+                    ))}
+                  </div>
+                )}
               </div>
-              <div className="hero-finder-field hero-date-field">
+              <div className="hero-finder-field hero-date-field" ref={dateMenuRef}>
                 <span className="hero-finder-icon">02</span>
-                <label htmlFor="dates">When?</label>
-                <button id="dates" type="button" onClick={() => datePickerRef.current?.showPicker?.()}>{dateLabel}</button>
-                <input ref={datePickerRef} type="date" value={date} min={today} onChange={(event) => setDate(event.target.value)} aria-label="Select travel date" />
+                <label>When?</label>
+                <button id="dates" className="hero-finder-control" type="button" aria-haspopup="dialog" aria-expanded={isDatePickerOpen} onClick={() => setIsDatePickerOpen((open) => !open)}>
+                  <span className={date ? '' : 'is-placeholder'}>{dateLabel}</span>
+                </button>
                 <CalendarDays size={14} />
+                {isDatePickerOpen && (
+                  <div className="finder-calendar" role="dialog" aria-label="Choose a travel date">
+                    <div className="finder-calendar-head">
+                      <button type="button" aria-label="Previous month" disabled={calendarMonth <= new Date(minimumDate.getFullYear(), minimumDate.getMonth(), 1)} onClick={() => setCalendarMonth((month) => new Date(month.getFullYear(), month.getMonth() - 1, 1))}><ChevronLeft size={15} /></button>
+                      <strong>{calendarMonthLabel}</strong>
+                      <button type="button" aria-label="Next month" onClick={() => setCalendarMonth((month) => new Date(month.getFullYear(), month.getMonth() + 1, 1))}><ChevronRight size={15} /></button>
+                    </div>
+                    <div className="finder-calendar-weekdays">{['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map((dayName) => <span key={dayName}>{dayName}</span>)}</div>
+                    <div className="finder-calendar-grid">
+                      {calendarDays.map((calendarDay) => {
+                        const value = formatDateValue(calendarDay)
+                        const outsideMonth = calendarDay.getMonth() !== calendarMonth.getMonth()
+                        const disabled = outsideMonth || isPastDate(calendarDay)
+                        const selected = value === date
+                        return <button key={value} type="button" disabled={disabled} className={`${outsideMonth ? 'is-outside ' : ''}${selected ? 'is-selected' : ''}`} onClick={() => { setDate(value); setIsDatePickerOpen(false) }}>{calendarDay.getDate()}</button>
+                      })}
+                    </div>
+                    <div className="finder-calendar-foot"><button type="button" onClick={() => { setDate(''); setIsDatePickerOpen(false) }}>Clear</button><button type="button" onClick={() => { setDate(today); setIsDatePickerOpen(false); setCalendarMonth(new Date(minimumDate.getFullYear(), minimumDate.getMonth(), 1)) }}>Today</button></div>
+                  </div>
+                )}
               </div>
               <button className="hero-finder-submit" type="button" onClick={() => destination ? selectSearchDestination(destination) : document.getElementById('destinations')?.scrollIntoView({ behavior: 'smooth' })}>
                 <span>Explore</span><ArrowRight size={16} />

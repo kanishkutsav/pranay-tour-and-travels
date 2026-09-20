@@ -610,7 +610,6 @@ function App() {
           <div className="footer-links reveal reveal-delay-1">
             <div><span>Explore</span><a href="#destinations">Destinations</a><a href="#experiences">Experiences</a><a href="#why-us">Why us</a></div>
             <div><span>Contact</span><a href="tel:9935123959">9935123959</a><a href="mailto:ukindiavns@gmail.com">ukindiavns@gmail.com</a><a href={whatsappLink} target="_blank" rel="noreferrer">WhatsApp <ArrowUpRight size={12} /></a></div>
-            <div><span>Popular right now</span>{popularDestinations.map((item) => <span className="footer-destination" key={item}>{item}</span>)}</div>
           </div>
           <div className="footer-bottom"><span>© 2026 Pranay Tour and Travels</span><span>Thoughtful journeys across India.</span><a href="#top">Back to top <ArrowUpRight size={12} /></a></div>
         </div>

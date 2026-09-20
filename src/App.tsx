@@ -1,4 +1,4 @@
-import { type CSSProperties, type FormEvent, useEffect, useRef, useState } from 'react'
+import { type CSSProperties, type FormEvent, type RefObject, useEffect, useRef, useState } from 'react'
 import {
   ArrowDownRight,
   ArrowRight,
@@ -94,7 +94,7 @@ function App() {
     return `${year}-${month}-${day}`
   }
 
-  const updateFinderPlacement = (ref: React.RefObject<HTMLDivElement | null>, menuHeight: number) => {
+  const updateFinderPlacement = (ref: RefObject<HTMLDivElement | null>, menuHeight: number) => {
     if (!ref.current) return
     const rect = ref.current.getBoundingClientRect()
     const spaceBelow = window.innerHeight - rect.bottom

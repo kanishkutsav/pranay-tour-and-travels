@@ -12,7 +12,6 @@ import {
   Menu,
   MessageCircle,
   PhoneCall,
-  Play,
   ShieldCheck,
   Sparkles,
   Star,
@@ -249,13 +248,6 @@ function App() {
   const selectDestination = (destinationName: string) => {
     setSelectedDestination(destinationName)
     window.requestAnimationFrame(() => document.getElementById('experiences')?.scrollIntoView({ behavior: 'smooth', block: 'start' }))
-  }
-
-  const selectSearchDestination = (value: string) => {
-    setDestination(value)
-    if (!value) return
-    const region = Object.entries(regionMap).find(([, places]) => places.includes(value))?.[0]
-    if (region) selectDestination(region)
   }
 
   const toggleSavedTrip = (title: string) => {

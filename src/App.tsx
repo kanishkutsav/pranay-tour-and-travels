@@ -96,9 +96,20 @@ function App() {
   const updateFinderPlacement = (ref: RefObject<HTMLDivElement | null>, menuHeight: number) => {
     if (!ref.current) return
     const rect = ref.current.getBoundingClientRect()
-    const spaceBelow = window.innerHeight - rect.bottom
-    const spaceAbove = rect.top
-    setFinderPlacement(spaceBelow < Math.min(menuHeight, window.innerHeight * .72) + 16 && spaceAbove > spaceBelow ? 'above' : 'below')
+    const gap = 12
+    const spaceBelow = Math.max(window.innerHeight - rect.bottom - gap, 0)
+    const spaceAbove = Math.max(rect.top - gap, 0)
+    const desiredHeight = Math.min(menuHeight, window.innerHeight * .72)
+    const placement = spaceBelow >= desiredHeight
+      ? 'below'
+      : spaceAbove >= desiredHeight
+        ? 'above'
+        : spaceAbove > spaceBelow
+          ? 'above'
+          : 'below'
+    const availableSpace = placement === 'above' ? spaceAbove : spaceBelow
+    ref.current.style.setProperty('--finder-space', `${Math.max(availableSpace, 120)}px`)
+    setFinderPlacement(placement)
   }
 
   const openDestinationMenu = () => {
@@ -512,7 +523,7 @@ function App() {
               const isSaved = savedTrips.includes(trip.title)
               return (
                 <article
-                  className={`package-card package-card-${(index % 6) + 1} reveal reveal-delay-${index % 3}`}
+                  className={`package-card package-card-${index + 1} reveal reveal-delay-${index % 3}`}
                   key={trip.title}
                   onMouseEnter={() => setCursorLabel('View')}
                   onMouseLeave={() => setCursorLabel('')}

@@ -332,6 +332,10 @@ h2 i {
   transition: height .45s var(--ease), background .45s ease, border-color .45s ease, backdrop-filter .45s ease;
 }
 
+.hero-section:has(.navbar.is-scrolled) {
+  z-index: 1000;
+}
+
 .navbar.is-scrolled {
   position: fixed;
   height: 70px;

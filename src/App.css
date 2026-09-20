@@ -1571,7 +1571,30 @@ footer {
 }
 
 .mobile-whatsapp {
-  display: none;
+  position: fixed;
+  z-index: 5000;
+  left: 16px;
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(255,255,255,.78);
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  box-shadow: 0 12px 30px rgba(0,0,0,.28);
+  text-decoration: none;
+  transition: transform .25s var(--ease), box-shadow .25s ease;
+}
+
+.mobile-whatsapp:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 16px 34px rgba(0,0,0,.32);
+}
+
+.mobile-whatsapp:active {
+  transform: scale(.96);
 }
 
 .callback-overlay {
@@ -2241,7 +2264,7 @@ footer {
 
   .mobile-whatsapp {
     position: fixed;
-    z-index: 90;
+    z-index: 5000;
     left: 14px;
     bottom: calc(14px + env(safe-area-inset-bottom));
     display: grid;

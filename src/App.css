@@ -2492,6 +2492,7 @@ footer {
 .hero-finder-field {
   position: relative;
   display: grid;
+  cursor: pointer;
   grid-template-columns: 25px 1fr 14px;
   grid-template-rows: auto auto;
   column-gap: 8px;

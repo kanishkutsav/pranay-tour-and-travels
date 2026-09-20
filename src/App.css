@@ -1974,6 +1974,10 @@ footer {
     display: none;
   }
 
+  .nav-actions {
+    margin-left: auto;
+  }
+
   .menu-button {
     display: grid;
   }
@@ -2540,4 +2544,11 @@ footer {
     border-right: 0;
     border-bottom: 1px solid rgba(255,255,255,.14);
   }
+}
+
+
+.mobile-whatsapp svg {
+  width: 26px;
+  height: 26px;
+  display: block;
 }

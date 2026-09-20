@@ -380,15 +380,15 @@ function App() {
             <h1 className="hero-title"><span className="hero-title-line">Go where your</span><span className="hero-title-line hero-title-accent">heart feels at home.</span></h1>
             <p className="hero-copy">Thoughtful journeys across India, made for curious people and the stories they bring back.</p>
             <div className="hero-finder" aria-label="Find a journey">
-              <div className="hero-finder-field hero-destination-field" ref={destinationMenuRef}>
+              <div className="hero-finder-field hero-destination-field" ref={destinationMenuRef} onClick={openDestinationMenu}>
                 <span className="hero-finder-icon">01</span>
                 <label>Where to?</label>
-                <button className="hero-finder-control" type="button" aria-haspopup="listbox" aria-expanded={isDestinationMenuOpen} onClick={openDestinationMenu}>
+                <button className="hero-finder-control" type="button" aria-haspopup="listbox" aria-expanded={isDestinationMenuOpen} onClick={(event) => { event.stopPropagation(); openDestinationMenu() }}>
                   <span className={destination ? '' : 'is-placeholder'}>{destination || 'Choose a destination'}</span>
                 </button>
                 <ChevronDown className={isDestinationMenuOpen ? 'is-open' : ''} size={14} />
                 {isDestinationMenuOpen && (
-                  <div className={`finder-dropdown ${finderPlacement === 'above' ? 'finder-menu-above' : ''}`} role="listbox" aria-label="Choose a destination">
+                  <div className={`finder-dropdown ${finderPlacement === 'above' ? 'finder-menu-above' : ''}`} role="listbox" aria-label="Choose a destination" onClick={(event) => event.stopPropagation()}>
                     <button className={!destination ? 'is-selected' : ''} type="button" role="option" aria-selected={!destination} onClick={() => { setDestination(''); setIsDestinationMenuOpen(false) }}>Choose a destination</button>
                     {experienceDestinations.map((destinationName) => (
                       <button className={destination === destinationName ? 'is-selected' : ''} type="button" role="option" aria-selected={destination === destinationName} key={destinationName} onClick={() => { setDestination(destinationName); setIsDestinationMenuOpen(false) }}>{destinationName}</button>

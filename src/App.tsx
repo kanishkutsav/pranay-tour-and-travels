@@ -1,4 +1,4 @@
-import { type FormEvent, useEffect, useRef, useState } from 'react'
+import { type CSSProperties, type FormEvent, useEffect, useRef, useState } from 'react'
 import {
   ArrowDownRight,
   ArrowRight,

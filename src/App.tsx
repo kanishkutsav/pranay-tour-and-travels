@@ -69,7 +69,6 @@ function App() {
   const [formError, setFormError] = useState('')
   const [isScrolled, setIsScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('top')
-  const [cursorLabel, setCursorLabel] = useState('')
   const [isLoading, setIsLoading] = useState(true)
   const [callbackForm, setCallbackForm] = useState({ name: '', trip: '', plannedDate: '', phone: '', comments: '' })
   const destinationMenuRef = useRef<HTMLDivElement>(null)
@@ -314,7 +313,7 @@ function App() {
   return (
     <main className={isLoading ? 'is-loading' : ''}>
       <div className="scroll-progress" aria-hidden="true" />
-      <div className="cursor-system" aria-hidden="true"><span className="cursor-ring" /><span className="cursor-dot" /><span className="cursor-label">{cursorLabel}</span></div>
+      <div className="cursor-system" aria-hidden="true"><span className="cursor-ring" /><span className="cursor-dot" /></div>
 
       {isLoading && (
         <div className="loading-screen" aria-hidden="true">
@@ -491,8 +490,6 @@ function App() {
                 key={item.name}
                 type="button"
                 onClick={() => selectDestination(item.name)}
-                onMouseEnter={() => setCursorLabel('Explore')}
-                onMouseLeave={() => setCursorLabel('')}
                 aria-label={`Explore experiences in ${item.name}`}
               >
                 <img src={item.image} alt={item.name} loading={index === 0 ? 'eager' : 'lazy'} />
@@ -525,8 +522,6 @@ function App() {
                 <article
                   className={`package-card package-card-${index + 1} reveal reveal-delay-${index % 3}`}
                   key={trip.title}
-                  onMouseEnter={() => setCursorLabel('View')}
-                  onMouseLeave={() => setCursorLabel('')}
                 >
                   <div className="package-image">
                     <button

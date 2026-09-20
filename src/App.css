@@ -172,8 +172,7 @@ img {
 }
 
 .cursor-ring,
-.cursor-dot,
-.cursor-label {
+.cursor-dot {
   position: fixed;
   left: var(--cursor-x);
   top: var(--cursor-y);
@@ -194,26 +193,6 @@ img {
   height: 4px;
   border-radius: 50%;
   background: #fff;
-}
-
-.cursor-label {
-  display: grid;
-  place-items: center;
-  width: 66px;
-  height: 66px;
-  border-radius: 50%;
-  background: var(--terracotta);
-  color: #fff;
-  font: 700 8px 'Manrope', sans-serif;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  opacity: 0;
-  transition: opacity .25s ease, transform .35s var(--ease);
-}
-
-.cursor-label:not(:empty) {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
 }
 
 .reveal {

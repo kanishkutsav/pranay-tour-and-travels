@@ -364,15 +364,15 @@ function App() {
                   </div>
                 )}
               </div>
-              <div className="hero-finder-field hero-date-field" ref={dateMenuRef}>
+              <div className="hero-finder-field hero-date-field" ref={dateMenuRef} onClick={() => setIsDatePickerOpen(true)}>
                 <span className="hero-finder-icon">02</span>
                 <label>When?</label>
-                <button id="dates" className="hero-finder-control" type="button" aria-haspopup="dialog" aria-expanded={isDatePickerOpen} onClick={() => setIsDatePickerOpen((open) => !open)}>
+                <button id="dates" className="hero-finder-control" type="button" aria-haspopup="dialog" aria-expanded={isDatePickerOpen} onClick={(event) => { event.stopPropagation(); setIsDatePickerOpen((open) => !open) }}>
                   <span className={date ? '' : 'is-placeholder'}>{dateLabel}</span>
                 </button>
                 <CalendarDays size={14} />
                 {isDatePickerOpen && (
-                  <div className="finder-calendar" role="dialog" aria-label="Choose a travel date">
+                  <div className="finder-calendar" role="dialog" aria-label="Choose a travel date" onClick={(event) => event.stopPropagation()}>
                     <div className="finder-calendar-head">
                       <button type="button" aria-label="Previous month" disabled={calendarMonth <= new Date(minimumDate.getFullYear(), minimumDate.getMonth(), 1)} onClick={() => setCalendarMonth((month) => new Date(month.getFullYear(), month.getMonth() - 1, 1))}><ChevronLeft size={15} /></button>
                       <strong>{calendarMonthLabel}</strong>

@@ -2480,7 +2480,7 @@ footer {
 .finder-dropdown,
 .finder-calendar {
   position: absolute;
-  z-index: 30;
+  z-index: 100;
   top: calc(100% + 9px);
   overflow: hidden;
   border: 1px solid rgba(255,255,255,.18);
@@ -2491,7 +2491,8 @@ footer {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 }
-.finder-dropdown { left: 10px; right: 10px; padding: 7px; }
+.finder-dropdown { left: 10px; right: 10px; max-height: min(360px, 58vh); padding: 7px; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
+.finder-dropdown.finder-menu-above { top: auto; bottom: calc(100% + 9px); }
 .finder-dropdown button {
   display: flex;
   width: 100%;
@@ -2509,7 +2510,8 @@ footer {
 .finder-dropdown button:hover,
 .finder-dropdown button.is-selected { background: rgba(201,111,86,.12); color: #a64f3b; }
 .finder-dropdown button.is-selected::after { content: '✓'; margin-left: auto; font-weight: 700; }
-.finder-calendar { width: 285px; right: 10px; padding: 14px; }
+.finder-calendar { width: 285px; right: 10px; max-height: min(380px, 72vh); padding: 14px; }
+.finder-calendar.finder-menu-above { top: auto; bottom: calc(100% + 9px); }
 .finder-calendar-head,
 .finder-calendar-foot { display: flex; align-items: center; justify-content: space-between; }
 .finder-calendar-head strong { color: var(--ink); font: 700 12px/1 'Manrope', sans-serif; letter-spacing: .02em; }
@@ -2586,4 +2588,18 @@ footer {
   width: 26px;
   height: 26px;
   display: block;
+}
+
+.hero-section.has-finder-open {
+  z-index: 20;
+  overflow: visible;
+}
+
+.finder-dropdown::-webkit-scrollbar {
+  width: 5px;
+}
+
+.finder-dropdown::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(37,53,47,.22);
 }

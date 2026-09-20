@@ -59,6 +59,7 @@ function App() {
   const [date, setDate] = useState('')
   const [isDestinationMenuOpen, setIsDestinationMenuOpen] = useState(false)
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false)
+  const [finderPlacement, setFinderPlacement] = useState<'below' | 'above'>('below')
   const [calendarMonth, setCalendarMonth] = useState(() => { const current = new Date(); return new Date(current.getFullYear(), current.getMonth(), 1) })
   const [isCallbackFormOpen, setIsCallbackFormOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -93,6 +94,26 @@ function App() {
     return `${year}-${month}-${day}`
   }
 
+  const updateFinderPlacement = (ref: React.RefObject<HTMLDivElement | null>, menuHeight: number) => {
+    if (!ref.current) return
+    const rect = ref.current.getBoundingClientRect()
+    const spaceBelow = window.innerHeight - rect.bottom
+    const spaceAbove = rect.top
+    setFinderPlacement(spaceBelow < Math.min(menuHeight, window.innerHeight * .72) + 16 && spaceAbove > spaceBelow ? 'above' : 'below')
+  }
+
+  const openDestinationMenu = () => {
+    updateFinderPlacement(destinationMenuRef, 330)
+    setIsDatePickerOpen(false)
+    setIsDestinationMenuOpen((open) => !open)
+  }
+
+  const openDatePicker = () => {
+    updateFinderPlacement(dateMenuRef, 365)
+    setIsDestinationMenuOpen(false)
+    setIsDatePickerOpen((open) => !open)
+  }
+
   useEffect(() => {
     const timer = window.setTimeout(() => setIsLoading(false), 720)
     return () => window.clearTimeout(timer)
@@ -120,6 +141,18 @@ function App() {
     document.addEventListener('pointerdown', onPointerDown)
     return () => document.removeEventListener('pointerdown', onPointerDown)
   }, [])
+
+  useEffect(() => {
+    if (!isDestinationMenuOpen && !isDatePickerOpen) return
+    const refreshPlacement = () => updateFinderPlacement(isDestinationMenuOpen ? destinationMenuRef : dateMenuRef, isDestinationMenuOpen ? 330 : 365)
+    refreshPlacement()
+    window.addEventListener('resize', refreshPlacement)
+    window.addEventListener('scroll', refreshPlacement, true)
+    return () => {
+      window.removeEventListener('resize', refreshPlacement)
+      window.removeEventListener('scroll', refreshPlacement, true)
+    }
+  }, [isDestinationMenuOpen, isDatePickerOpen])
 
   useEffect(() => {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -287,7 +320,7 @@ function App() {
       )}
 
       <section
-        className="hero-section"
+        className={`hero-section ${isDestinationMenuOpen || isDatePickerOpen ? 'has-finder-open' : ''}`}
         id="top"
         ref={heroRef}
         style={{ '--hero-image': `url("${heroImage}")` } as CSSProperties}
@@ -351,12 +384,12 @@ function App() {
               <div className="hero-finder-field hero-destination-field" ref={destinationMenuRef}>
                 <span className="hero-finder-icon">01</span>
                 <label>Where to?</label>
-                <button className="hero-finder-control" type="button" aria-haspopup="listbox" aria-expanded={isDestinationMenuOpen} onClick={() => setIsDestinationMenuOpen((open) => !open)}>
+                <button className="hero-finder-control" type="button" aria-haspopup="listbox" aria-expanded={isDestinationMenuOpen} onClick={openDestinationMenu}>
                   <span className={destination ? '' : 'is-placeholder'}>{destination || 'Choose a destination'}</span>
                 </button>
                 <ChevronDown className={isDestinationMenuOpen ? 'is-open' : ''} size={14} />
                 {isDestinationMenuOpen && (
-                  <div className="finder-dropdown" role="listbox" aria-label="Choose a destination">
+                  <div className={`finder-dropdown ${finderPlacement === 'above' ? 'finder-menu-above' : ''}`} role="listbox" aria-label="Choose a destination">
                     <button className={!destination ? 'is-selected' : ''} type="button" role="option" aria-selected={!destination} onClick={() => { setDestination(''); setIsDestinationMenuOpen(false) }}>Choose a destination</button>
                     {experienceDestinations.map((destinationName) => (
                       <button className={destination === destinationName ? 'is-selected' : ''} type="button" role="option" aria-selected={destination === destinationName} key={destinationName} onClick={() => { setDestination(destinationName); setIsDestinationMenuOpen(false) }}>{destinationName}</button>
@@ -364,15 +397,15 @@ function App() {
                   </div>
                 )}
               </div>
-              <div className="hero-finder-field hero-date-field" ref={dateMenuRef} onClick={() => setIsDatePickerOpen(true)}>
+              <div className="hero-finder-field hero-date-field" ref={dateMenuRef} onClick={openDatePicker}>
                 <span className="hero-finder-icon">02</span>
                 <label>When?</label>
-                <button id="dates" className="hero-finder-control" type="button" aria-haspopup="dialog" aria-expanded={isDatePickerOpen} onClick={(event) => { event.stopPropagation(); setIsDatePickerOpen((open) => !open) }}>
+                <button id="dates" className="hero-finder-control" type="button" aria-haspopup="dialog" aria-expanded={isDatePickerOpen} onClick={(event) => { event.stopPropagation(); openDatePicker() }}>
                   <span className={date ? '' : 'is-placeholder'}>{dateLabel}</span>
                 </button>
                 <CalendarDays size={14} />
                 {isDatePickerOpen && (
-                  <div className="finder-calendar" role="dialog" aria-label="Choose a travel date" onClick={(event) => event.stopPropagation()}>
+                  <div className={`finder-calendar ${finderPlacement === 'above' ? 'finder-menu-above' : ''}`} role="dialog" aria-label="Choose a travel date" onClick={(event) => event.stopPropagation()}>
                     <div className="finder-calendar-head">
                       <button type="button" aria-label="Previous month" disabled={calendarMonth <= new Date(minimumDate.getFullYear(), minimumDate.getMonth(), 1)} onClick={() => setCalendarMonth((month) => new Date(month.getFullYear(), month.getMonth() - 1, 1))}><ChevronLeft size={15} /></button>
                       <strong>{calendarMonthLabel}</strong>

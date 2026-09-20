@@ -315,6 +315,28 @@ function App() {
               </button>
               <a className="hero-secondary" href="#experiences"><span className="hero-play"><Play size={11} fill="currentColor" /></span><span>Explore experiences</span></a>
             </div>
+
+            <div className="hero-finder" aria-label="Find a journey">
+              <div className="hero-finder-field">
+                <span className="hero-finder-icon">01</span>
+                <label htmlFor="destination">Where to?</label>
+                <select id="destination" value={destination} onChange={(event) => setDestination(event.target.value)}>
+                  <option value="">Choose a destination</option>
+                  {experienceDestinations.map((destinationName) => <option value={destinationName} key={destinationName}>{destinationName}</option>)}
+                </select>
+                <ChevronDown size={14} />
+              </div>
+              <div className="hero-finder-field hero-date-field">
+                <span className="hero-finder-icon">02</span>
+                <label htmlFor="dates">When?</label>
+                <button id="dates" type="button" onClick={() => datePickerRef.current?.showPicker?.()}>{dateLabel}</button>
+                <input ref={datePickerRef} type="date" value={date} min={today} onChange={(event) => setDate(event.target.value)} aria-label="Select travel date" />
+                <CalendarDays size={14} />
+              </div>
+              <button className="hero-finder-submit" type="button" onClick={() => destination ? selectSearchDestination(destination) : document.getElementById('destinations')?.scrollIntoView({ behavior: 'smooth' })}>
+                <span>Explore</span><ArrowRight size={16} />
+              </button>
+            </div>
           </div>
           <div className="hero-bottom">
             <div className="hero-location"><span className="hero-location-dot" /> Uttar Pradesh · Bihar · Jharkhand · Delhi</div>

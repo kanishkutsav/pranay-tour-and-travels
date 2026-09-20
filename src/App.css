@@ -903,8 +903,8 @@ h2 i {
 
 .destination-grid {
   display: grid;
-  grid-template-columns: 1.25fr .85fr .85fr;
-  grid-template-rows: 255px 255px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, 300px);
   gap: 12px;
 }
 
@@ -924,7 +924,7 @@ h2 i {
 }
 
 .destination-card-1 {
-  grid-row: span 2;
+  grid-row: auto;
 }
 
 .destination-card img {
@@ -1072,12 +1072,19 @@ h2 i {
 }
 
 .package-card-1,
-.package-card-6 {
+.package-card-2 {
   grid-column: span 6;
 }
 
 .package-card-3,
-.package-card-8 {
+.package-card-4,
+.package-card-5,
+.package-card-6,
+.package-card-7,
+.package-card-8,
+.package-card-9,
+.package-card-10,
+.package-card-11 {
   grid-column: span 4;
 }
 
@@ -2566,7 +2573,7 @@ footer {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 }
-.finder-dropdown { left: 10px; right: 10px; max-height: min(360px, 58vh); padding: 7px; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
+.finder-dropdown { left: 10px; right: 10px; max-height: min(360px, var(--finder-space, 58vh)); padding: 7px; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
 .finder-dropdown.finder-menu-above { top: auto; bottom: calc(100% + 9px); }
 .finder-dropdown button {
   display: flex;
@@ -2585,7 +2592,7 @@ footer {
 .finder-dropdown button:hover,
 .finder-dropdown button.is-selected { background: rgba(201,111,86,.12); color: #a64f3b; }
 .finder-dropdown button.is-selected::after { content: '✓'; margin-left: auto; font-weight: 700; }
-.finder-calendar { width: 285px; right: 10px; max-height: min(380px, 72vh); padding: 14px; }
+.finder-calendar { width: 285px; right: 10px; max-height: min(380px, var(--finder-space, 72vh)); padding: 14px; overflow-y: auto; scrollbar-width: thin; }
 .finder-calendar.finder-menu-above { top: auto; bottom: calc(100% + 9px); }
 .finder-calendar-head,
 .finder-calendar-foot { display: flex; align-items: center; justify-content: space-between; }
@@ -2670,11 +2677,18 @@ footer {
   overflow: visible;
 }
 
-.finder-dropdown::-webkit-scrollbar {
+.hero-section.has-finder-open::before {
+  inset: 0;
+  transform: none;
+}
+
+.finder-dropdown::-webkit-scrollbar,
+.finder-calendar::-webkit-scrollbar {
   width: 5px;
 }
 
-.finder-dropdown::-webkit-scrollbar-thumb {
+.finder-dropdown::-webkit-scrollbar-thumb,
+.finder-calendar::-webkit-scrollbar-thumb {
   border-radius: 999px;
   background: rgba(37,53,47,.22);
 }

@@ -28,7 +28,7 @@ const destinations = [
 const packages = [
   { title: 'Ram Janmabhoomi & Ayodhya', location: 'Ayodhya · 3 days', destinations: ['Ayodhya'], tag: 'Spiritual trail', image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Ram%20Janmbhoomi%20Mandir%2C%20Ayodhya%20Dham.jpg?width=1200' },
   { title: 'The Taj Mahal story', location: 'Agra · 2 days', destinations: ['Agra'], tag: 'Heritage pick', image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Taj%20Mahal%20in%20March%202004.jpg?width=1200' },
-  { title: 'Varanasi by the Ganga', location: 'Varanasi · 4 days', destinations: ['Varanasi'], tag: 'Soulful escape', image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Ganga%20Dwar%2C%20Gateway%20of%20Kashi%20Vishwanath%20Temple%2C%20Varanasi%202.webp?width=1200' },
+  { title: 'Varanasi by the Ganga', location: 'Varanasi · 4 days', destinations: ['Varanasi'], tag: 'Soulful escape', image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Ganga%20Dwar%2C%20Gateway%20of%20Corridor%20of%20Kashi%20Vishwanath%20Temple%2C%20Varanasi%202.webp?width=1200' },
   { title: 'Prayagraj confluence', location: 'Allahabad · 3 days', destinations: ['Allahabad'], tag: 'River retreat', image: '/prayagraj-confluence.png' },
   { title: 'Lucknow tehzeeb trail', location: 'Lucknow · 3 days', destinations: ['Lucknow'], tag: 'Culture pick', image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Bara%20Imambara%20Lucknow.jpg?width=1200' },
   { title: 'Bodh Gaya awakening', location: 'Bodh Gaya · 3 days', destinations: ['Bodh Gaya'], tag: 'Buddhist trail', image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Mahabodhi%20temple%20complex.jpg?width=1200' },

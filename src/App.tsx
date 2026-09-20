@@ -2,6 +2,7 @@ import { type CSSProperties, type FormEvent, useEffect, useRef, useState } from 
 import {
   ArrowDownRight,
   ArrowRight,
+  ArrowUpRight,
   CalendarDays,
   ChevronDown,
   Compass,
@@ -259,7 +260,7 @@ function App() {
         className="hero-section"
         id="top"
         ref={heroRef}
-        style={{ '--hero-image': `url("${heroImage}")` } as React.CSSProperties}
+        style={{ '--hero-image': `url("${heroImage}")` } as CSSProperties}
       >
         <div className="hero-atmosphere" aria-hidden="true" />
         <nav className={`navbar ${isScrolled ? 'is-scrolled' : ''}`} aria-label="Main navigation">

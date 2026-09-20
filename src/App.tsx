@@ -48,7 +48,6 @@ const regionMap: Record<string, string[]> = {
 }
 
 const experienceDestinations = [...new Set(packages.flatMap((trip) => trip.destinations))]
-const popularDestinations = ['Ayodhya', 'Varanasi', 'Bodh Gaya', 'Rajgir']
 const businessPhone = '9935123959'
 const whatsappLink = 'https://wa.me/919935123959?text=Hi%20Pranay%20Tour%20%26%20Travels%2C%20I%27d%20like%20to%20plan%20a%20trip.'
 const heroImage = 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=2200&q=90'
